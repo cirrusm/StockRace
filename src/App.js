@@ -2,11 +2,24 @@ import logo from './logo.svg';
 import StockRow from './components/StockRow'
 
 
+
 function App() {
   return (
     <div className="App">
       <div className="container">
-        <table className="table mt-5">
+        <div className="col-md-5 mt-5">
+          <div className="card">
+            
+              <ul className="list-group list-group-flush">
+                <StockRow ticker='aapl'/>
+                <StockRow ticker ='msft' />
+                <StockRow ticker= 'nio' />
+                <StockRow ticker ='tsla' />
+              </ul>
+            
+          </div>
+        </div>
+        {/* <table className="table mt-5">
           <thead>
             <tr>
               <th>Ticker</th>
@@ -21,7 +34,7 @@ function App() {
             <StockRow ticker="msft" />
             <StockRow ticker="tsla" />
           </tbody>
-        </table>
+        </table> */}
         
       </div>
     </div>
