@@ -13,13 +13,31 @@ class StockRow extends Component {
     super(props);
 
     this.state = {
-      data: {},
+      price: null,
+      date: null,
+      time: null,
+      dollar_change: 0,
+      percent_change: 0,
     };
   }
 
   applyData(data) {
     this.setState({
-      data: data,
+      price: `$${data.price}`,
+      date: data.date,
+      time: data.time,
+    });
+    stock.getYesterdaysClose(this.props.ticker, data.date, (yesterday) => {
+      console.log(this.props.ticker, yesterday);
+      const dollar_change = (data.price - yesterday.price).toFixed(1)
+      const percent_change = ((dollar_change / yesterday.price) * 100).toFixed(1)
+
+      this.setState({
+        dollar_change: `$${dollar_change}`,
+        percent_change: `(${percent_change})`
+
+      });
+      console.log(data);
     });
   }
 
@@ -32,9 +50,11 @@ class StockRow extends Component {
     return (
       <>
         <li className="list-group-item">
-          <b>{this.props.ticker} </b> {this.state.data.price}
+          <b>{this.props.ticker} </b> {this.state.price}
           <span className="change" style={changeStyle}>
-            +12.34 (5.2%)
+            <span className="mr-2 ml-4">{this.state.dollar_change}</span>
+            <span>{this.state.percent_change}%</span>
+          
           </span>
         </li>
       </>
